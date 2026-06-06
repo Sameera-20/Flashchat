@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import axios from '../api';   // adjust path based on file location
 import { useSocket } from '../context/SocketContext';
 
 const COLORS = ['#2563eb','#7c3aed','#db2777','#059669','#d97706','#dc2626'];

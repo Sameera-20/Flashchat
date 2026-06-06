@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSocket } from '../context/SocketContext';
-import axios from 'axios';
+import axios from '../api';   // adjust path based on file location
 import MessageBubble, { DateDivider } from './MessageBubble';
 
 const QUICK_EMOJIS = ['😊','😂','❤️','👍','🎉','😮','😢','🔥','✅','👏','🙏','😍'];

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../api';   // adjust path based on file location
 
 const AuthContext = createContext(null);
 
