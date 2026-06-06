@@ -8,3 +8,6 @@ server/.env
 
 build/
 dist/
+
+uploads/
+server/uploads/

@@ -3,35 +3,8 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const Message = require('../models/Message');
 const Conversation = require('../models/Conversation');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+const { upload } = require('../config/cloudinary');
 
-// ─── Multer Setup ────────────────────────────────────────────────────────────
-const uploadDir = path.join(__dirname, '../uploads');
-if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadDir),
-  destination: (req, file, cb) => cb(null, uploadDir),
-  filename: (req, file, cb) => {
-    const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, unique + path.extname(file.originalname));
-  }
-});
-
-const upload = multer({
-  storage,
-  limits: { fileSize: 25 * 1024 * 1024 }, // 25MB
-  fileFilter: (req, file, cb) => {
-    // Allow images, videos, documents, archives
-    const allowed = /jpeg|jpg|png|gif|webp|mp4|mov|avi|webm|pdf|doc|docx|xls|xlsx|txt|zip|rar|mp3|wav/;
-    const ext = allowed.test(path.extname(file.originalname).toLowerCase());
-    const mime = allowed.test(file.mimetype);
-    if (ext || mime) return cb(null, true);
-    cb(new Error('File type not supported'));
-  }
-});
 
 const getFileType = (mimetype = '', originalname = '') => {
   if (mimetype.startsWith('image/')) return 'image';
@@ -131,7 +104,7 @@ router.post('/upload', auth, upload.single('file'), async (req, res) => {
       return res.status(403).json({ message: 'Access denied' });
     }
 
-    const fileUrl = `/uploads/${req.file.filename}`;
+    const fileUrl = req.file.path;
     const fileType = getFileType(req.file.mimetype, req.file.originalname);
 
     const message = await Message.create({
