@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0a0a0f;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.chat-page {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .chat-page { flex-direction: column; }
+
+  .sidebar {
+    width: 100% !important;
+    height: auto;
+    max-height: 200px;
+  }
+
+  .chat-window { flex: 1; min-height: 0; }
+}
